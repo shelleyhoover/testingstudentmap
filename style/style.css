@@ -1,0 +1,39 @@
+.PageTitle{
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+	text-align: center;
+	width: 650px;
+	margin: auto;
+	padding-top: 30px;
+}
+
+.subtitle1 {
+	color: darkgrey;
+	font-family: 'Montserrat', sans-serif;
+	text-align: left;
+	align-content: center;
+	width: 50%;
+	display: block;
+ 	margin-left: auto;
+	margin-right: auto;
+}
+
+.bodytext {
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+	text-align: left;
+	align-content: center;
+	width:  50%;
+	display: block;
+ 	margin-left: auto;
+	margin-right: auto;
+}
+
+#journeys{
+	height: 450px;
+	width: 900px;
+	align-content: center;
+	display: block;
+ 	margin-left: auto;
+	margin-right: auto;
+}

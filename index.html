@@ -1,150 +1,315 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-    <title>Annie Howard Leaflet Map UPP 465</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<title>Chicago in Isolation</title>
+			<style> 
+			body {
+				background: ghostwhite;
+			}
+			</style>
 
-    <!-- Copy your leaflet link here:  -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-            crossorigin=""></script>
+	<!-- CSS Reference -->
+	<link rel="stylesheet" type="text/css" href="style/style.css">
 
-    <!-- Copy your Leaflet Basemap Provider Link Here: -->
-    <script src="js/leaflet-providers.js"></script>
+	<!-- Font References -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
+
+	<!-- Leaflet Style Sheet -->
+ 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+
+ 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+    <!-- Leaflet Providers Basemap (I think?) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 </head>
+
 <body>
 
-<div class = "intro">
-    <h1>My Uptown Map</h1>
-    <h3>Saying goodbye to Uptown and marking some of the places that made it special</h3>
-</div>
+<div>
+	<h1 class="PageTitle">Chicago in Isolation</h1></div>
 
-<div id = "map" ></div>
+<div>
+	<h2 class="subtitle1">Where I went to understand Chicago during a pandemic.</h2></div>
+
+<div> 
+	<p class="bodytext">I moved to Chicago on August 16, 2020, in the middle of a pandemic with no connection to the city except a graduate program I knew I had to get through. <br><br> For several months, my only experiences were solitary ones. I would visit the city’s landmarks, the lakefront, the campus, all alone as a way to orient myself in someplace new. I forced myself to order pickup from a restaurant several bus stop or train rides away to force myself to understand the “L” and memorize my bus routes. While the only human connections I had were those temporary boxes on Zoom, the city, itself, became my first friend, encouraging me to trudge through snow, jaywalk at the right times, sit and watch the world go by.
+	<br><br>
+	These are some of the places that oriented me to a new home, before my new friends could.
+	</p></div>
+
+<div id ="journeys"></div>
 
 <script>
 
-    //
-    // initialize your map here
-    var map = L.map('map').setView([41.967, -87.665], 14);
+	//Leaflet Map Variable
+	var myMap = L.map('journeys').setView([41.86591, -87.64715], 11.5);
 
+	L.tileLayer('https://tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token=AIFAiQF7wlQXVHDkt2BT58ZDSW8TnAQMebt37G5sqgSITMmJosjt5XE3tRBYrGLz', {
+   		addAttribution:"<a href=\"https://www.jawg.io\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"}).addTo(myMap);
 
-    // add a base layer
+	//Locations
+	//Library
 
-    var Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abcd',
-        minZoom: 14,
-        maxZoom: 17,
-        ext: 'jpg'
-    }).addTo(map);
+//Marker Icon
+	var pinIcon = L.icon({
+		iconURL: 'img/PinIcon.png',
+		iconSize: [30, 30],
+	});
 
+	var marker = L.marker ([41.87644, -87.62816],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Harold Washington Library");
 
+	//Union Park
+	var marker = L.marker ([41.88463, -87.66592],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Union Park");
 
-   // create a variable that pulls in a new icon image
-    var houseIcon = L.icon({
-    iconUrl: 'homeicon.png',
-      iconSize: [20, 20],
-    });
+	//Chipotle Madison
+	var marker = L.marker ([41.88248, -87.62704],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Chipotle - Madison");
 
-    var foodIcon = L.icon({
-        iconUrl: 'restauranticon.jpg',
-        iconSize: [20, 20],
-    });
+	//Chipotle Evanston
+	var marker = L.marker ([42.048720, -87.68118],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Chipotle-Evanston");
 
-    var shopIcon = L.icon({
-        iconUrl: 'shopicon.jpg',
-        iconSize: [20, 20],
-    });
+	//Chipotle South Loop
+	var marker = L.marker ([41.86825, -87.64122],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Chipotle-South Loop");
 
-    //create markers & give it the icon we created
-    // Stone Soup
-    var marker = L.marker([41.967388, -87.665361], {
-        icon: houseIcon
-    }).addTo(map).bindPopup("Stone Soup: I lived in this house from August 2017 to March 2018. It's an intentional community of activists, artists, and organizers, and was essential to transitioning to life after college.");
+	//Promontory Point Park
+	var marker = L.marker ([41.79558, -87.57674],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Promonotory Point Park");
 
-    var marker1 = L.marker([ 41.971991, -87.670751],{
-        icon: houseIcon
-    }).addTo(map).bindPopup("Current Apartment: I lived at 4903 N. Paulina Street from March 2018 to July 2020. It's technically a one-bedroom, but my partner and I used it as a two-bedroom. It doesn't get enough sunlight, but it has a back porch and a front yard. I'll miss it a lot.");
+	//Fresh Farms
+	var marker = L.marker ([42.01988, -87.76989],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Fresh Farms - Niles");
 
-    var marker2 = L.marker([41.976868, -87.668246],{
-       icon: houseIcon
-    }).addTo(map).bindPopup("Sophie's Place");
+	//Union Station
+	var marker = L.marker ([41.87898, -87.64087],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Chicago Union Station");
 
-    var marker3 = L.marker([41.973, -87.669],{
-        icon: houseIcon
-    }).addTo(map).bindPopup("Anna and Lucinda's Place");
+	//Curry on Fire
+	var marker = L.marker ([41.86972, -87.65235],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Curry on Fire");
 
-    var marker4 = L.marker([ 41.972930, -87.673098 ],{
-         icon: houseIcon
-    }).addTo(map).bindPopup("Ben's Place");
+	//57th Street Beach
+	var marker = L.marker ([41.79133, -87.57883],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("57th Street Beach");
 
-    var marker5 = L.marker([41.977, -87.679],{
-         icon: houseIcon
-    }).addTo(map).bindPopup("Virginia's Place");
+	//The Art Institute of Chicago
+	var marker = L.marker ([41.87976, -87.62361],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("The Art Institute of Chicago");
 
-    var marker6 = L.icon([41.976640, -87.668630],{
-          icon: foodIcon
-    }).addTo(map).bindPopup("Simon's: Probably my favorite bar in Chicago? Divey, unpretentious, with a great jukebox. Also in the summertime, frozen glogg slushies, which are delicious. Went there for the first time since quarantine in late July before it had to shut down again, not sure I'll ever have the chance to go back.");
+	//Ping Tom Memorial Park
+	var marker = L.marker ([41.85744, -87.63430],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Ping Tom Memorial Park");
 
-    var marker7 = L.icon([41.975904, -87.668650],{
-         icon: foodIcon
-    }).addTo(map).bindPopup("Hopleaf");
+	//Washington Square Park
+	var marker = L.marker ([41.90098, -87.63095],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Washington Square Park");
 
-    var marker8 = L.icon([41.974123, -87.668363],{
-         icon: foodIcon
-    }).addTo(map).bindPopup("Jets: Truly the best pizza.");
+	//Adler Planetarium
+	var marker = L.marker ([41.86659, -87.60692],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Adler Planetarium");
 
-    var marker9 = L.icon([ 41.971692, -87.668236 ],{
-         icon: shopIcon
-    }).addTo(map).bindPopup("Village Discount Outlet: I think the first time I went to the Village was for my 20th birthday, when I took a bunch of my friends on the Metra and we went thrifting. Then I moved a block away from it after college -- truly wild. I will miss being this close to this store, but at least I just got a tattoo of the sign on my leg to commemorate its magic.");
+	//Uptown Post Office
+	var marker = L.marker ([41.97069, -87.66002],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("U.S. Post Office - Uptown");
 
-    var marker10 = L.icon([ 41.968624, -87.673046 ],{
-        icon: foodIcon
-    }).addTo(map).bindPopup("Taqueria Primo Chuki's: It will be nearly impossible to replace Primo Chuki's. Truly the best taqueria of all-time, not just for the food, but for the small, persistent sense of normalcy it's given life over the past few years.");
+	//Whitney Young High School
+	var marker = L.marker ([41.87776, -87.66304],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Whitney Young Magnet High School");
 
-    var marker11 = L.icon([ 41.969485, -87.675084 ],{
-        icon: shopIcon
-    }) .addTo(map).bindPopup("Mariano's");
+	//Arrigo Park
+	var marker = L.marker ([41.87193, -87.66020],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Arrigo Park");
 
-   // var marker12 = L.icon([41.973948, -87.681698],{
-     //     icon: greenIcon
-    //}).addTo(map).bindPopup("Winnemac Park");
+	//Apple Lincoln Park
+	var marker = L.marker ([41.91074, -87.64843],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Apple Lincoln Park");
 
-    //var marker13 = L.icon([41.968504, -87.674566],{
-      //    icon: greenIcon
-    //}).addTo(map).bindPopup("Ravenswood Metra Station");
+	//DMV Cicero
+	var marker = L.marker ([41.87290, -87.75732],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("DMV Cicero");
 
-    var marker14 = L.icon([ 41.968792, -87.667633 ],{
-          icon: foodIcon
-    }).addTo(map).bindPopup("Ridman's");
+	//Lakeview
+	var marker = L.marker ([41.94010, -87.65695],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Lakeview");
 
-    //var marker15 = L.icon([ 41.968665, -87.667304 ],{
-      //   icon: greenIcon
-    //}) .addTo (map) .blindPopup("Lawrence & Clark Gallery");
+	//Daley Plaza
+	var marker = L.marker ([41.88426, -87.62987],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Daley Plaza");
 
-    var marker16 = L.icon([ 41.979706, -87.669497 ],{
-        icon: foodIcon
-    }) .addTo (map) .blindPopup("First Slice Pie Cafe");
+	//Panaderia Nuevo Leon
+	var marker = L.marker ([41.85817, -87.66764],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Panaderia Nuevo Leon");
 
-    var marker17 = L.icon([  41.980265, -87.668472  ],{
-         icon: shopIcon
-    }) .addTo (map) .blindPopup("Brown Elephant");
+	//O'Hare Int'l Airport
+	var marker = L.marker ([41.98206, -87.90856],{
+		icon: pinIcon
+	}).addTo(myMap).bindPopup("Chicago O'Hare International Airport");
 
-    var marker18 = L.icon([  41.963889, -87.656902  ],{
-        icon: shopIcon
-    }) .addTo (map) .blindPopup("Aldi");
+	//UIC East Campus Polygon
+	var polygon = L.polygon([
+		[41.87537, -87.6567],
+		[41.87524, -87.64719],
+		[41.86237, -87.64681],
+		[41.86228, -87.65092],
+		[41.87302, -87.65135],
+		[41.87296, -87.65662],
+		], {
+			color: '#800000',
+			fillColor: 'yellow',
+			fillOpacity: .15,
+		}).addTo(myMap).bindPopup("UIC East Campus)");
 
-   // var marker19 = L.icon([ 41.968665, -87.667304 ],{
-     //   icon: greenIcon
-    //}) .addTo (map) .blindPopup("Lawrence & Clark Gallery");
+	//Locations From My Apartment
+	var line = L.polyline ([[41.87644, -87.62816], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
 
-    var marker20 = L.icon([ 41.982357, -87.668234 ],{
-        icon: shopIcon
-    }) .addTo (map) .blindPopup("Edgewater Produce");
+	//Union Park
+	var line = L.polyline ([[41.88463, -87.66592], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Chipotle Madison
+	var line = L.polyline ([[41.88248, -87.62704], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Chipotle Evanston
+	var line = L.polyline ([[42.048720, -87.68118], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Chipotle South Loop
+	var line = L.polyline ([[41.86825, -87.64122], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Promontory Point Park
+	var line = L.polyline ([[41.79558, -87.57674], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Fresh Farms
+	var line = L.polyline ([[42.01988, -87.76989], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Union Station
+	var line = L.polyline ([[41.87898, -87.64087], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Curry on Fire
+	var line = L.polyline ([[41.86972, -87.65235], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//57th Street Beach
+	var line = L.polyline ([[41.79133, -87.57883], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//The Art Institute of Chicago
+	var line = L.polyline ([[41.87976, -87.62361], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Ping Tom Memorial Park
+	var line = L.polyline ([[41.85744, -87.63430], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Washington Square Park
+	var line = L.polyline ([[41.90098, -87.63095], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Adler Planetarium
+	var line = L.polyline ([[41.86659, -87.60692], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Uptown Post Office
+	var line = L.polyline ([[41.97069, -87.66002], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Whitney Young High School
+	var line = L.polyline ([[41.87776, -87.66304], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Arrigo Park
+	var line = L.polyline ([[41.87193, -87.66020], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Apple Lincoln Park
+	var line = L.polyline ([[41.91074, -87.64843], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//DMV Cicero
+	var line = L.polyline ([[41.87290, -87.75732], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Lakeview
+	var line = L.polyline ([[41.94010, -87.65695], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Daley Plaza
+	var line = L.polyline ([[41.88426, -87.62987], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//Panaderia Nuevo Leon
+	var line = L.polyline ([[41.85817, -87.66764], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
+	//O'Hare Int'l Airport
+	var line = L.polyline ([[41.98206, -87.90856], [41.8659, -87.64715]],{
+		color: 'orange',
+		}).addTo(myMap);
+
 
 
 </script>
