@@ -53,10 +53,10 @@
 <script>
 
 	//Leaflet Map Variable
-	var myMap = L.map('journeys').setView([41.86591, -87.64715], 11.5);
+	var journeys = L.map('journeys').setView([41.86591, -87.64715], 11.5);
 
 	L.tileLayer('https://tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token=AIFAiQF7wlQXVHDkt2BT58ZDSW8TnAQMebt37G5sqgSITMmJosjt5XE3tRBYrGLz', {
-   		addAttribution:"<a href=\"https://www.jawg.io\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"}).addTo(myMap);
+   		addAttribution:"<a href=\"https://www.jawg.io\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"}).addTo(journeys);
 
 	//Locations
 	//Library
@@ -87,27 +87,27 @@
 	}).addTo(journeys).bindPopup("Chipotle-Evanston");
 
 	//Chipotle South Loop
-	var marker = L.marker([41.86825, -87.64122],{
+	var marker = L.marker ([41.86825, -87.64122],{
 		icon: pinIcon
 	}).addTo(myMap).bindPopup("Chipotle-South Loop");
 
 	//Promontory Point Park
-	var marker = L.marker([41.79558, -87.57674],{
+	var marker = L.marker ([41.79558, -87.57674],{
 		icon: pinIcon
 	}).addTo(myMap).bindPopup("Promonotory Point Park");
 
 	//Fresh Farms
-	var marker = L.marker([42.01988, -87.76989],{
+	var marker = L.marker ([42.01988, -87.76989],{
 		icon: pinIcon
 	}).addTo(myMap).bindPopup("Fresh Farms - Niles");
 
 	//Union Station
-	var marker = L.marker([41.87898, -87.64087],{
+	var marker = L.marker ([41.87898, -87.64087],{
 		icon: pinIcon
 	}).addTo(myMap).bindPopup("Chicago Union Station");
 
 	//Curry on Fire
-	var marker = L.marker([41.86972, -87.65235],{
+	var marker = L.marker ([41.86972, -87.65235],{
 		icon: pinIcon
 	}).addTo(myMap).bindPopup("Curry on Fire");
 
