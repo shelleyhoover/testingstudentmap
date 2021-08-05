@@ -1,5 +1,30 @@
-#map { 
-height: 500px;
-width:700px;
-margin: auto; 
+.intro {
+	width: 500px;
+	margin: left;
+} 
+
+.intro h1 {
+	font-family: 'Libre Baskerville', serif;
+	text-align: left;
+	font-size: 40pt;
+} 
+
+.intro h3 {
+	font-family: 'Libre Baskerville', serif;
+	text-align: left;
+	font-size: 12pt;
+}
+
+.paragraph {
+	font-family: 'Libre Baskerville', serif;
+	text-align: left;
+	font-size: 12pt;
+	width: 1000px;
+	margin: auto;
+}
+
+#map {
+	width: 800px;
+	height: 600px;
+	margin: auto;
 }

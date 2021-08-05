@@ -2,76 +2,106 @@
 <html>
 
 <head>
-	<!--last updated at 7:52pm -->
-	
-<title>Homework 4</title>
+<title>UPP465SarahHowe</title>
 <link rel="stylesheet" href="style.css"> 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+<style>body{background:Orange;}h1{color:PeachPuff;font-weight:bold;font-family: 'Libre Baskerville', serif;}</style>
+<style>p{font-family: 'Libre Baskerville', serif;}</style>
+<style>h3{color:PeachPuff;font-weight:bold;font-family: 'Libre Baskerville', serif;}</style>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
-<script src="js/leaflet-providers.js"></script>
-
+ <script src="js/leaflet-providers.js"></script>
+	
 <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-
 </head>
+	
 
 <body>
-	<div>
-		<h1 style="color: darkseagreen;text-align: center;" >Houston TIRZs</h1>
-	</div>
-		<h2 style="color: deeppink;text-align: center; size: 10;" >465 Web Mapping August 2, 2021</h2>
+	
 
-<p style="text-align: center; color: mediumblue;" >Map of Houston tax increment reinvestment zones TIRZ by study area size.
-	TIRZs are special zones created by City Council to attract new investment in the area.
-	The zones help finance costs and encourage new developments that improve the nearby communities.</p>
+<div class = "intro">
+<h1>Chicago Early Learning: Needs & Accessibility</h1>
+<p>This is a resource for parents and guardians in Chicago to access their family needs and connect their children to mixed modes of education.</p>
+</div>
+	
 
-<div id = "map">
+<div>
+<p>Access to both indoor and outdoor modes of education are absolutely crucial to infant and toddler cognitive development. In Chicago's Early Learning programs, prior to kindergarten, educators are equipped to meet the educational needs of each student to prepare them to enter Chicago's school districts. Further, these programs provide physical and mental health assessments, parent and guardian trainings, and safe, CDC-advised classroom environments. For parents experiencing adversity, Chicago's Early Learning programs, such as Every Child Ready Chicago, can provide necessary supports for parents.</p>
+<p>It is just as important for young minds to be cognitively engaged in Chicago's outdoor environments as within the classroom. According to Harvard Medical School's health publications, infants, toddlers, and preschool children require outdoor education to fully prepare them for adolescence. Outdoor education, as simple as engaging with a neighborhood playground, helps children in six crucial ways: access to sunshine (Vitamin D), exercise, executive function, risk taking, socialization, and appreciation of nature.</p>
+	
 
-	<script>
-		var map = L.map('map').setView([29.7499, -95.3584], 13);
+</div>
+	
 
-		var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	attribution: 'Map tiles by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	minZoom: 0,
-	maxZoom: 18,
+</body>
+	 
+<div id = "map"></div>
+
+<script>	
+ 
+var map = L.map('map').setView([41.88, -87.62], 11);
+
+var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
 }).addTo(map);
 
-$.getJSON("Houston_TIRZ.geojson",function(data){
+
+$.getJSON("Parks.geojson",function(data){
 	L.geoJSON(data, {
-		style: function(feature) {
-			var areaColor;
-			var areaServed = feature.properties.ShapeSTAre;
-				if ( areaServed <= 13000 ) areaColor = "blue";
-				else areaColor = "orange";
-				return { 
-				fillColor: areaColor,
-				color: 'black',
-				fillOpacity: .6,
-			};
-		}, 
-		onEachFeature: function( feature, layer ){
-			layer.bindPopup( "<Houston TIRZ>" + feature.properties.NAME )
-
+	style: {
+		color: "green",
+	},
+	onEachFeature: function(feature, layer){
+			layer.bindPopup("<strong>"+ feature.properties.park + "</strong><br/>" + "Playgrounds:" + feature.properties.playground)
 		}
+}).addTo(map);
 
-	}).addTo(map);
+});
 
-			});
-		
+$.getJSON("City.geojson",function(data){
+        L.geoJSON(data, {
+        style: {
+                color: "#C0C0C0",
+                fillColor: "transparant",
+                fillOpacity: .02,
+        }
+}).addTo(map);
 
+});
 
-	</script>
-	
-</div>
+$.getJSON("ELP.geojson",function(data){
+	L.geoJSON(data, {
+		pointToLayer: function(feature, latlng) {
+			var agesColor;
+			var agesServed = feature.properties.Ages_0_3;
+			if ( agesServed == "true" ) agesColor = "lightskyblue";
+			else agesColor = "midnightblue";
+			return new L.CircleMarker(latlng, 
+				{	radius: 4,
+					fillOpacity: 2,
+					fillColor: agesColor,
+					color: 'black',
+					weight: .8, 
+				});
+		},
+		onEachFeature: function(feature, layer){
+			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served)
+		}
+			}).addTo(map).bringToFront();
+		});
+
+</script>
+
+</div>	
 
 </body>
 
 </html>
-
-
