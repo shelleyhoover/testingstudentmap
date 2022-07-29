@@ -1,107 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-<title>UPP465SarahHowe</title>
-<link rel="stylesheet" href="style.css"> 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
-<style>body{background:Orange;}h1{color:PeachPuff;font-weight:bold;font-family: 'Libre Baskerville', serif;}</style>
-<style>p{font-family: 'Libre Baskerville', serif;}</style>
-<style>h3{color:PeachPuff;font-weight:bold;font-family: 'Libre Baskerville', serif;}</style>
-
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
-
- <script src="js/leaflet-providers.js"></script>
-	
-<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-</head>
+	<head>
+		
+		<title>Westside Drug Markets</title>
+		<link rel="stylesheet" href="style.css">
+<!-- Google Font Link: -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 	
 
-<body>
-	
+ <! - -Call Leaflet: - ->
+			<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   				integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   				crossorigin=""/>
+			
+			<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   				integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   				crossorigin=""></script>
 
-<div class = "intro">
-<h1>Chicago Early Learning: Needs & Accessibility</h1>
-<p>This is a resource for parents and guardians in Chicago to access their family needs and connect their children to mixed modes of education.</p>
-</div>
-	
 
-<div>
-<p>Access to both indoor and outdoor modes of education are absolutely crucial to infant and toddler cognitive development. In Chicago's Early Learning programs, prior to kindergarten, educators are equipped to meet the educational needs of each student to prepare them to enter Chicago's school districts. Further, these programs provide physical and mental health assessments, parent and guardian trainings, and safe, CDC-advised classroom environments. For parents experiencing adversity, Chicago's Early Learning programs, such as Every Child Ready Chicago, can provide necessary supports for parents.</p>
-<p>It is just as important for young minds to be cognitively engaged in Chicago's outdoor environments as within the classroom. According to Harvard Medical School's health publications, infants, toddlers, and preschool children require outdoor education to fully prepare them for adolescence. Outdoor education, as simple as engaging with a neighborhood playground, helps children in six crucial ways: access to sunshine (Vitamin D), exercise, executive function, risk taking, socialization, and appreciation of nature.</p>
-	
+  <script src="js/leaflet-providers.js"></script>
+   		</head>
 
-</div>
-	
+		<body>
+			<div id = "info">
+			<p>Tags: drug markets, Chicago, Westside</p>
+			<p> Map Page: <a hred="https://github.com/PjBurke4/GithubBurke">here</a></p></div>
 
-</body>
-	 
-<div id = "map"></div>
+<div id = "map" ></div>
 
-<script>	
- 
-var map = L.map('map').setView([41.88, -87.62], 11);
+<script>
 
-var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-	maxZoom: 16
+	// initialize your map here 
+
+	var map = L.map('map').setView([41.86, -87.66], 13);
+
+	//add basemap
+var OpenStreetMap_DE = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+	maxZoom: 18,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+var marker = L.marker([41.86, -87.66]).addTo(map).bindPopup('Chicago')
 
-$.getJSON("Parks.geojson",function(data){
-	L.geoJSON(data, {
-	style: {
-		color: "green",
-	},
-	onEachFeature: function(feature, layer){
-			layer.bindPopup("<strong>"+ feature.properties.park + "</strong><br/>" + "Playgrounds:" + feature.properties.playground)
-		}
-}).addTo(map);
+var myPolygon = L.polygon([
+	[41.66, -87.11],
+	[41.73, -87.06],
+	[41.96, -87.31],
+	[41.41, -87.47],
+	]. {
+		color: 'Red'
+		fillcolor 'Blue'
+	}
 
-});
 
-$.getJSON("City.geojson",function(data){
-        L.geoJSON(data, {
-        style: {
-                color: "#C0C0C0",
-                fillColor: "transparant",
-                fillOpacity: .02,
-        }
-}).addTo(map);
-
-});
-
-$.getJSON("ELP.geojson",function(data){
-	L.geoJSON(data, {
-		pointToLayer: function(feature, latlng) {
-			var agesColor;
-			var agesServed = feature.properties.Ages_0_3;
-			if ( agesServed == "true" ) agesColor = "lightskyblue";
-			else agesColor = "midnightblue";
-			return new L.CircleMarker(latlng, 
-				{	radius: 4,
-					fillOpacity: 2,
-					fillColor: agesColor,
-					color: 'black',
-					weight: .8, 
-				});
-		},
-		onEachFeature: function(feature, layer){
-			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served)
-		}
-			}).addTo(map).bringToFront();
-		});
+	).addTo(map).bindPopup('This is the Indiana Triangle');
 
 </script>
 
-</div>	
+		</div>
 
-</body>
 
+	</body>
 </html>
