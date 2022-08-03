@@ -1,66 +1,114 @@
 <!doctype html>
 <html>
+
 	<head>
-		
-		<title>Westside Drug Markets</title>
+
+		<title>CPS in proximity to vulnerable COVID areas in the City</title>
 		<link rel="stylesheet" href="style.css">
-<!-- Google Font Link: -->
+	<!-- Google font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-	
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<!-- Second Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
 
- <! - -Call Leaflet: - ->
-			<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-   				integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-   				crossorigin=""/>
-			
-			<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-   				integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-   				crossorigin=""></script>
+<!-- Leaflet Code -->
+ 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   		crossorigin=""/>
 
+   		 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   		crossorigin=""></script>
 
-  <script src="js/leaflet-providers.js"></script>
-   		</head>
+   		<!-- Leaflet basemap -->
+   		 <script src="http://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
+ 		 <script src="js/leaflet-providers.js"></script>
 
-<body>
-			<div id = "info">
-			<p>Tags: drug markets, Chicago, Westside</p>
-			<p> Map Page: <a href="https://github.com/patrickjburke6112/GithubBurke">here</a></p></div>
+ 		<!--  javascript text -->
+ 		<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
-<div id = "map" ></div>
+	</head>
 
-<script>
+	<body> 
 
-	// initialize your map here 
-
-	var map = L.map('map').setView([41.86, -87.66], 13);
-
-	//add basemap
-var OpenStreetMap_DE = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
-	maxZoom: 18,
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-var marker = L.marker([41.86, -87.66]).addTo(map).bindPopup('Chicago')
-
-var myPolygon = L.polygon([
-	[41.66, -87.11],
-	[41.73, -87.06],
-	[41.96, -87.31],
-	[41.41, -87.47],
-	], {
-		color: 'red',
-		fillcolor: 'blue',
-	}
-
-
-	).addTo(map).bindPopup('This is the Indiana Triangle');
-
-</script>
+	<div class="intro1">
+		<h1>CPS and Chicago zip codes vulnerable to COVID </h1>
+		<div class="intro2">
+		<h2>Exploring public school locations in Chicago with zip codes that are vulnerable to COVID</h2>
+		<!-- Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
 		</div>
 
+	<div class="info">
+		<p>There are 649 Chicago Public Schools in the City of Chicago.</p>
+		<p>Learn more about health and wellness at CPS <a href="hhttps://www.cps.edu/services-and-supports/health-and-wellness/">here.</a></p></div>
+
+</div>
+
+	<div id="map"></div>
+		
+<script> 
+	// intialize map
+	var map=L.map('map').setView([41.965, -87.635], 11);
+
+	// add basemap
+	var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+}).addTo(map);
+
+$.getJSON(“CPS_Locations.geojson”,function(data){
+// load geojson layer
+	L.geoJson(data, {
+		// add a property - pointToLayer
+	pointToLayer: function(feature, latLng) {	
+	// variable
+		var agesColor;
+		var agesServed = feature.properties.Ages_0_3;
+		if ( agesServed == "true" ) agesColor = 'green';
+		else agesColor = "red";	
+		L.CircleMarker(latLng,
+			{ 	radius: 5,
+				fillOpacity: 1,
+				fillColor: 'agesColor',
+				weight: .7,});
+				// add popups
+				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.Site_Name)}
+	}).addTo(map);
+
+}
+
+	// second property - polygon Layer
+$.getJSON("COVID_Vulnerability_Index_Zip.geojson",function(data){
+	L.geoJson(data {
+		style: function(feature){
+			var conditionalColor;
+			var vulnerable = feature.properties.I;
+			if ( vulnerable > 550 ) conditionalColor = "#54278f";
+			else if ( vulnerable > 450 ) conditionalColor = "#756bb1";
+			else if ( vulnerable > 300 ) conditionalColor = "#9e9ac8";
+			else if ( vulnerable > 150 ) conditionalColor = "#bcbddc";
+			else if ( vulnerable > 0 ) conditionalColor = "#dadaeb";
+				// no data
+			return (	color: "gray",
+						weight: 1,
+						fillColor: conditionalColor,
+						fillOpacity: 1, };
+		)},
+		onEachFeature: function( feature, Layer ){
+			layer.bindPopup("COVID_Vulnerability_Index_Zip " + feature.properties.CA + "<br/>" + Vulnerable Index: + feature.properties.VI )}
+		}
+	}).addTo(map).bringToback();
+});
+
+</script>
 
 	</body>
 </html>
