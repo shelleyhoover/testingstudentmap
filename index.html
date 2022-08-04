@@ -37,9 +37,9 @@
 	<body> 
 
 	<div class="intro1">
-		<h1>CPS and Chicago zip codes vulnerable to COVID </h1>
+		<h1>Chicago Public Schools & vulnerable COVID zip codes </h1>
 		<div class="intro2">
-		<h2>Exploring public school locations in Chicago with zip codes that are vulnerable to COVID</h2>
+		<h2>Exploring CPS locations with zip codes that are vulnerable to COVID</h2>
 		<!-- Google font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,8 +48,8 @@
 		</div>
 
 	<div class="info">
-		<p>There are 649 Chicago Public Schools in the City of Chicago.</p>
-		<p>Learn more about health and wellness at CPS <a href="hhttps://www.cps.edu/services-and-supports/health-and-wellness/">here.</a></p></div>
+		<p>There are 649 Chicago Public Schools in the City of Chicago. Nearly half of CPS grade schools reside in zip codes that are vulnerable to COVID. Burdening teachers, CPS administrators, and guardians</p>
+		<p>Learn more about health and wellness at CPS <a href="https://www.cps.edu/services-and-supports/health-and-wellness/">here</a></p></div>
 
 </div>
 
@@ -64,50 +64,43 @@
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 }).addTo(map);
 
-$.getJSON(“CPS_Locations.geojson”,function(data){
+
+$.getJSON("CPS_Locations.geojson",function(data){
 // load geojson layer
 	L.geoJson(data, {
 		// add a property - pointToLayer
 	pointToLayer: function(feature, latLng) {	
 	// variable
-		var agesColor;
-		var agesServed = feature.properties.Ages_0_3;
-		if ( agesServed == "true" ) agesColor = 'green';
-		else agesColor = "red";	
-		L.CircleMarker(latLng,
+		var gradesColor;
+		var gradesServed = feature.properties.Grades_1_8;
+		if ( gradesServed == "true" ) gradesColor = 'green';
+		else gradesColor = "red";	
+		return new L.CircleMarker(latLng,
 			{ 	radius: 5,
 				fillOpacity: 1,
-				fillColor: 'agesColor',
-				weight: .7,});
+				fillColor: 'gradesColor',
+				color: "orange"
+				weight: .7,
+			});
+			},
 				// add popups
-				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.Site_Name)}
+				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.school_id)
+				}
 	}).addTo(map);
-
-}
-
-	// second property - polygon Layer
-$.getJSON("COVID_Vulnerability_Index_Zip.geojson",function(data){
-	L.geoJson(data {
-		style: function(feature){
-			var conditionalColor;
-			var vulnerable = feature.properties.I;
-			if ( vulnerable > 550 ) conditionalColor = "#54278f";
-			else if ( vulnerable > 450 ) conditionalColor = "#756bb1";
-			else if ( vulnerable > 300 ) conditionalColor = "#9e9ac8";
-			else if ( vulnerable > 150 ) conditionalColor = "#bcbddc";
-			else if ( vulnerable > 0 ) conditionalColor = "#dadaeb";
-				// no data
-			return (	color: "gray",
-						weight: 1,
-						fillColor: conditionalColor,
-						fillOpacity: 1, };
-		)},
-		onEachFeature: function( feature, Layer ){
-			layer.bindPopup("COVID_Vulnerability_Index_Zip " + feature.properties.CA + "<br/>" + Vulnerable Index: + feature.properties.VI )}
-		}
-	}).addTo(map).bringToback();
 });
 
+	// second property - point Layer
+$.getJSON("COVID_Vulnerability_Index_Zip.geojson",function(data){
+	L.geoJson(data, {
+		pointToLayer: function(feature, latLng)
+				{ 	radius: 6,
+					fillOpacity: .5,
+					fillColor: "pink",
+				});
+	}
+	}).addTo(map).bringToback();
+
+	
 </script>
 
 	</body>
