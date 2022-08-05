@@ -37,7 +37,7 @@
 	<body> 
 
 	<div class="intro1">
-		<h1>Chicago Public Schools & vulnerable COVID zip codes 7:24pm</h1>
+		<h1>Chicago Public Schools & vulnerable COVID zip codes 8:10pm</h1>
 		<div class="intro2">
 		<h2>Exploring CPS locations with zip codes that are vulnerable to COVID</h2>
 		<!-- Google font -->
@@ -78,7 +78,7 @@ $.getJSON("CPS_Locations.geojson",function(data){
 		return new L.CircleMarker(latLng,
 			{ 	radius: 5,
 				fillOpacity: 1,
-				fillColor: 'gradesColor',
+				fillColor: gradesColor,
 				color: "orange",
 				weight: .7,
 			});
