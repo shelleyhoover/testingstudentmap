@@ -37,8 +37,7 @@
 	<body> 
 
 	<div class="intro1">
-		<p>SH 8/22/2022 - 6:55pm </p>
-		<h1>Chicago Public Schools & vulnerable COVID zip codes </h1>
+		<h1>Chicago Public Schools & vulnerable COVID zip codes 7:18pm</h1>
 		<div class="intro2">
 		<h2>Exploring CPS locations with zip codes that are vulnerable to COVID</h2>
 		<!-- Google font -->
@@ -73,9 +72,9 @@ $.getJSON("CPS_Locations.geojson",function(data){
 	pointToLayer: function(feature, latLng) {	
 	// variable
 		var gradesColor;
-		var gradesServed = feature.properties.Grades_1_8;
-		if ( gradesServed == "true" ) gradesColor = "green";
-		else gradesColor = "red";	
+		var gradesServed = feature.properties.grade_cat;
+		if ( gradesServed == "HS" ) gradesColor = "green";
+		else gradesColor = "ES";	
 		return new L.CircleMarker(latLng,
 			{ 	radius: 5,
 				fillOpacity: 1,
@@ -90,7 +89,7 @@ $.getJSON("CPS_Locations.geojson",function(data){
 	}).addTo(map);
 });
 
-	// second property - point Layer
+// 	// second property - point Layer
 // $.getJSON("COVID_Vulnerability_Index_Zip.geojson",function(data){
 // 	L.geoJson(data, {
 // 		pointToLayer: function(feature, latLng)
