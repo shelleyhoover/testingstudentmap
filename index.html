@@ -37,7 +37,7 @@
 	<body> 
 
 	<div class="intro1">
-		<h1>Chicago Public Schools & vulnerable COVID zip codes 7:18pm</h1>
+		<h1>Chicago Public Schools & vulnerable COVID zip codes 7:24pm</h1>
 		<div class="intro2">
 		<h2>Exploring CPS locations with zip codes that are vulnerable to COVID</h2>
 		<!-- Google font -->
@@ -74,7 +74,7 @@ $.getJSON("CPS_Locations.geojson",function(data){
 		var gradesColor;
 		var gradesServed = feature.properties.grade_cat;
 		if ( gradesServed == "HS" ) gradesColor = "green";
-		else gradesColor = "ES";	
+		else gradesColor = "red";	
 		return new L.CircleMarker(latLng,
 			{ 	radius: 5,
 				fillOpacity: 1,
